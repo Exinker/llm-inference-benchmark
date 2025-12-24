@@ -4,7 +4,6 @@ import time
 from collections.abc import Mapping
 from pathlib import Path
 
-from faker import Faker
 from openai import AsyncClient
 
 from benchmark import Benchmark, TestCase
@@ -14,7 +13,33 @@ from benchmark.configs import CLIENT_CONFIG
 REPORT_DIR = Path.cwd() / 'reports' / str(time.monotonic_ns())
 REPORT_DIR.mkdir(parents=True, exist_ok=True)
 
-FAKER = Faker()
+PROMPT = '''
+Дело было в январе,
+Стояла елка на горе,
+А возле этой елки
+Бродили злые волки.
+
+Вот как-то раз,
+Ночной порой,
+Когда в лесу так тихо,
+Встречают волка под горой
+Зайчата и зайчиха.
+
+Кому охота в Новый год
+Попасться в лапы волку!
+Зайчата бросились вперед
+И прыгнули на елку.
+
+Они прижали ушки,
+Повисли, как игрушки.
+
+Десять маленьких зайчат
+Висят на елке и молчат.
+Обманули волка.
+Дело было в январе, —
+Подумал он, что на горе
+Украшенная елка.
+'''
 
 
 async def main(
@@ -59,7 +84,7 @@ if __name__ == '__main__':
         'prefilling': TestCase(
             messages=[
                 {'role': 'system', 'content': 'You are helpful assistant. Summarize a given text.'},
-                {'role': 'user', 'content': FAKER.paragraph(10)},
+                {'role': 'user', 'content': PROMPT},
             ],
             temperature=0.2,
             max_tokens=1,
