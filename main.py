@@ -27,7 +27,7 @@ async def main(
             'model': CLIENT_CONFIG.model_name,
             'server': {
                 'host': CLIENT_CONFIG.host,
-                'models': await benchmark.get_models(),
+                'models': await benchmark.fetch_models(),
                 'info': CLIENT_CONFIG.info,
             },
         }, file, indent=2)
@@ -47,7 +47,7 @@ if __name__ == '__main__':
 
     client = AsyncClient(
         base_url=CLIENT_CONFIG.endpoint_url,
-        api_key=CLIENT_CONFIG.api_key,
+        api_key=CLIENT_CONFIG.api_key.get_secret_value(),
     )
     benchmark = Benchmark(
         client=client,

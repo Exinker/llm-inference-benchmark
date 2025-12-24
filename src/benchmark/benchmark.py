@@ -60,11 +60,16 @@ class Benchmark:
         self.model = model
         self.n_requests = n_requests
 
-    async def get_models(self) -> Mapping[str, Any]:
+    async def fetch_models(self) -> Mapping[str, Any]:
 
         async with aiohttp.ClientSession() as session:
             async with session.get(
-                url=str(self.client.base_url) + 'models',
+                url=str(self.client.base_url.join('models')),
+                headers={
+                    'Authorization': 'Bearer {api_key}'.format(
+                        api_key=self.client.api_key,
+                    ),
+                },
             ) as response:
                 response.raise_for_status()
 
