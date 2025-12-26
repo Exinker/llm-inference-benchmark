@@ -2,6 +2,7 @@ import asyncio
 import json
 import time
 from collections.abc import Mapping
+from datetime import datetime, timezone
 from pathlib import Path
 
 from openai import AsyncClient
@@ -49,6 +50,7 @@ async def main(
 
     with open(REPORT_DIR / '.info', 'w') as file:
         json.dump({
+            'datetime': datetime.strftime(datetime.now(tz=timezone.utc), '%Y-%m-%d %H:%M:%S'),
             'model': CLIENT_CONFIG.model_name,
             'server': {
                 'host': CLIENT_CONFIG.host,
