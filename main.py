@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
     profile = [1, 2, 4, 8, 12, 16, 24, 32, 48, 64]
     test_cases = {
-        'prefilling': TestCase(
+        'prefill': TestCase(
             messages=[
                 {'role': 'system', 'content': 'You are helpful assistant. Summarize a given text.'},
                 {'role': 'user', 'content': PROMPT},
@@ -92,7 +92,7 @@ if __name__ == '__main__':
             max_tokens=1,
             profile=profile,
         ),
-        'decoding': TestCase(
+        'decode': TestCase(
             messages=[
                 {'role': 'user', 'content': '?'},
             ],
